@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Apk Predicacion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="css/app.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="font/flaticon.css">
+    <style>
+      /* TODO */
+    </style>
+  </head>
+
+  <script type="text/javascript">
+        if(!localStorage.getItem("nombre")){
+        var usuario = prompt('Ingresa tu primer nombre aqui...!');
+        var tipo = prompt('Tipo de publicador: 1°) Normal --- 2°) Auxiliar --- 3°) Regular');
+        }
+
+cargar();
+function cargar() {
+  document.addEventListener("DOMContentLoaded", inicio);
+}
+
+    class Mostrar{
+
+      vista_predicacion(arreglo_predi,cero,i){
+        if(!localStorage.getItem(`hora${i}`)){
+          localStorage.setItem(`hora${i}`,cero);
+        }else{
+          localStorage.setItem(`hora${i}`,localStorage.getItem(`hora${i}`));
+        }
+        var alert_fondo;
+        if(localStorage.getItem(`hora${i}`) == 0){
+          alert_fondo = "alert alert-danger";
+        }else{
+          alert_fondo = "alert alert-info";
+        }
+        var inyect_predicacion = document.getElementById('inyect_predicacion');
+        var nuevo_alert = document.createElement("articule");
+        nuevo_alert.innerHTML = `<div class="${alert_fondo} icono${i}"><strong>${arreglo_predi[i]} :</strong><span class="badge badge-light bg-info p-2 pildora"><strong class="numero" id="area${i}">${localStorage.getItem(`hora${i}`)}</strong></span></div>
+        `;
+        inyect_predicacion.appendChild(nuevo_alert);
+      }
+
+      vista_usuario(usuario,tipo,año,mes,dia,num_dia){
+        var arreglo_año = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+        var arreglo_dia = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+
+        for(var j=0; j<=arreglo_año.length; j++){
+          if(mes == j){
+            mes = arreglo_año[j];
+          if(localStorage.getItem("mes")){
+            if(localStorage.getItem("mes") != mes){
+              localStorage.removeItem("hora0");
+              localStorage.removeItem("hora1");
+              localStorage.removeItem("hora2");
+              localStorage.setItem("mes",mes);
+          }
+        }else{
+            localStorage.setItem("mes",mes);
+             }
+          }
+          if(j < arreglo_dia.length){
+            if(dia == j){
+              dia = arreglo_dia[j];
+            }
+          }
+        }
+
+        
+
+
+        var inyect_mes_año = document.querySelector(".mes_año");
+        var nuevo_mes_año = document.createElement("span");
+        nuevo_mes_año.classList = "badge badge-light p-2 pildora_fecha";
+        nuevo_mes_año.innerHTML = `<strong class="numero">${dia} -- ${num_dia} -- ${mes} -- ${año}</strong>`;
+        inyect_mes_año.appendChild(nuevo_mes_año);
+      
+        var inyect_usuario = document.querySelector('.nombre_usuario');
+        var inyect_tipo = document.querySelector(".tipo");
+
+        var nuevo_usuario = document.createElement("h6");
+        nuevo_usuario.classList = 'text-center p-2';
+        nuevo_usuario.innerText = usuario;
+        inyect_usuario.appendChild(nuevo_usuario);
+
+        var nuevo_tipo = document.createElement("h6");
+        if(tipo == '2'){
+          nuevo_tipo.classList = 'media_estrella ml-2 p-2';
+          nuevo_tipo.innerText = 'Precursor Auxiliar';
+        }else if(tipo == '3'){
+          nuevo_tipo.classList = 'completa_estrella ml-2 p-2';
+          nuevo_tipo.innerText = 'Precursor Regular';
+        }else if(tipo == '1' || tipo == null || tipo == '' || tipo != '1' || tipo != '2' || tipo != '3'){
+          nuevo_tipo.classList = 'estrella ml-2 p-2';
+          nuevo_tipo.innerText = 'Publicador';
+        }
+        inyect_tipo.appendChild(nuevo_tipo);
+      }
+
+      vista_revisita(){
+        var nombres_revisitas = document.querySelector("#inyec_revisitas articule");
+        var inyec_revisitas = document.getElementById("inyec_revisitas");
+        var area_de_revistas = document.getElementById("area3");
+
+        if(localStorage.getItem("suma")){
+
+          for(var i=1; i<=localStorage.getItem("suma"); i++){
+
+            if(localStorage.getItem(`nombre_revisita${i}`) == null){
+
+            }else{
+          var inyec_revisitas = document.getElementById("inyec_revisitas");
+          var nuevo_alert = document.createElement("articule");
+          nuevo_alert.innerHTML = `<div class="alert alert-info"><strong id="alert_nombre">${localStorage.getItem(`nombre_revisita${i}`)}</strong> -- <strong id="alert_dia">${localStorage.getItem(`dia_revisita${i}`)}</strong> -- <strong id="alert_pregunta">${localStorage.getItem(`Pregunta_revisita${i}`)}</strong> --- <strong onclick="eliminar_revisita('nombre_revisita${i}','dia_revisita${i}','Pregunta_revisita${i}')" class="eliminar_revisita">X</strong></div>`;
+ 
+          inyec_revisitas.appendChild(nuevo_alert);
+           }
+        }
+      }
+
+        if(area_de_revistas.innerHTML == 0){
+          var mensaje_sin_nombres = document.createElement("div");
+          mensaje_sin_nombres.className = "mensaje_sin_nombres_revisita";
+          mensaje_sin_nombres.innerHTML = `<div class="alert alert-danger"><h6 class="text-center">Por el momento no tienes <strong>Revisitas</strong></h6></div>`;
+          inyec_revisitas.appendChild(mensaje_sin_nombres);
+        }
+      }
+
+      vista_estudio(){
+        var area_de_estudio = document.getElementById("area4");
+        var nombres_estudios = document.querySelector("#inyect_estudios articule");
+        var inyect_estudios = document.getElementById("inyect_estudios");
+
+         if(localStorage.getItem("suma_estudio")){
+
+          for(var i=1; i<=localStorage.getItem("suma_estudio"); i++){
+
+            if(localStorage.getItem(`nombre_estudiante${i}`) == null){
+
+            }else{
+          var inyec_revisitas = document.getElementById("inyec_revisitas");
+          var nuevo_alert = document.createElement("articule");
+          nuevo_alert.innerHTML = `<div class="alert alert-info"><strong id="alert_nombre">${localStorage.getItem(`nombre_estudiante${i}`)}</strong> -- <strong id="alert_dia">${localStorage.getItem(`capitulo_pendiente${i}`)}</strong> -- <strong id="alert_pregunta">${localStorage.getItem(`parrafo_pendiente${i}`)}</strong> --- <strong onclick="eliminar_estudio('nombre_estudiante${i}','capitulo_pendiente${i}','parrafo_pendiente${i}')" class="eliminar_revisita">X</strong></div>`;
+ 
+          inyect_estudios.appendChild(nuevo_alert);
+           }
+        }
+      }
+
+        if(area_de_estudio.innerHTML == 0){
+          var mensaje_sin_estuidos = document.createElement("div");
+          mensaje_sin_estuidos.innerHTML = `<div class="alert alert-danger"><h6 class="text-center">Por el momento no tienes <strong>Estudios</strong></h6></div>`;
+          inyect_estudios.appendChild(mensaje_sin_estuidos);
+        }
+      }
+
+}
+
+var objeto_mostrar = new Mostrar();
+
+function inicio() {
+
+  if(!localStorage.getItem("nombre")){
+  if(usuario == null || usuario == '' && tipo == null || tipo == ''){
+    window.location.reload();
+  }else{
+        localStorage.setItem("nombre",usuario);
+        localStorage.setItem("tipo",tipo);
+  }
+ }
+
+//function btn_pricipal() {
+  var aviso = document.getElementById("aviso");
+  aviso.style.display = "none";
+  
+     var arreglo_predi = ['Horas', 'Revistas', 'Folletos', 'Revisitas', 'Estudios'];
+    for(var i=0; i<=4; i++){
+    objeto_mostrar.vista_predicacion(arreglo_predi,0,i);
+  }
+
+  var num_dia = new Date().getDate();
+  var dia = new Date().getDay();
+  var año = new Date().getFullYear();
+  var mes = new Date().getMonth();
+  objeto_mostrar.vista_usuario(localStorage.getItem("nombre"),localStorage.getItem("tipo"),año,mes,dia,num_dia);
+
+
+  objeto_mostrar.vista_revisita();
+  objeto_mostrar.vista_estudio();
+
+  var capitulo_pendiente = document.getElementById("capitulo_pendiente");
+  for (var i = 1; i <=20; i++) {
+  var nuevo_option = document.createElement("option");
+  nuevo_option.value = "CAP- "+i;
+  nuevo_option.innerText = "CAP- "+i;
+  capitulo_pendiente.appendChild(nuevo_option);
+}
+
+  var parrafo_pendiente = document.getElementById("parrafo_pendiente");
+  for(var j=1; j<=20; j++){
+    var nuevo_option_p = document.createElement("option");
+    nuevo_option_p.value = "PAF- "+j;
+    nuevo_option_p.innerText = "PAF- "+j;
+    parrafo_pendiente.appendChild(nuevo_option_p);
+  }
+
+ 
+}
+
+function mostrar_modal() {
+var todo = document.querySelector(".todo");
+var ventana = document.querySelector(".ventana");
+  ventana.style.display = "block";
+  todo.style.display = "none";
+  todo.style.height = "0px";
+}
+
+function guardar() {
+        var obtener_hora = document.getElementById("horas").value;
+        var obtener_revista = document.getElementById("revistas").value;
+        var obtener_folleto = document.getElementById("folletos").value;
+        /////////////////////////////////////////////////////////////
+        var area_h = document.getElementById("area0");
+        var area_de_revistas = document.getElementById("area1");
+        var area_de_folletos = document.getElementById("area2");        
+        //////////////////////////////////////////////////////////////
+        if (obtener_hora != '' || obtener_revista != '' || obtener_folleto != '') {
+          if(obtener_hora == ''){
+            obtener_hora = 0;
+          } if(obtener_revista == ''){
+            obtener_revista = 0;
+          } if(obtener_folleto == ''){
+            obtener_folleto = 0;
+          }
+
+          var pasar_h = area_h.innerHTML;
+          pasar_h = parseInt(pasar_h) + parseInt(obtener_hora);
+          localStorage.setItem("hora0",pasar_h);
+          area_h.innerHTML = `${localStorage.getItem("hora0")}`;
+
+          var pasar_r = area_de_revistas.innerHTML;
+          pasar_r = parseInt(pasar_r) + parseInt(obtener_revista);
+          localStorage.setItem("hora1",pasar_r);
+          area_de_revistas.innerHTML = `${localStorage.getItem("hora1")}`;
+
+          var pasar_f = area_de_folletos.innerHTML;
+          pasar_f = parseInt(pasar_f) + parseInt(obtener_folleto);
+          localStorage.setItem("hora2",pasar_f);
+          area_de_folletos.innerHTML = `${localStorage.getItem("hora2")}`;         
+
+        var spiner = document.querySelector(".spiner");
+        spiner.style.display = "block";
+        setTimeout(function(){
+          spiner.style.display = "none";
+          document.getElementById("agregar_datos_formulario").reset();
+            alert("Datos agregados Correctamente");
+              var todo = document.querySelector(".todo");
+                var ventana = document.querySelector(".ventana");
+                  ventana.style.display = "none";
+                    todo.style.display = "block";
+                    window.location.reload();
+        },1000);
+      }else{
+        alert("Campos vacios, verifique y vuelva a intentarlo.");
+      }
+}
+
+function volver() {
+var todo = document.querySelector(".todo");
+var ventana = document.querySelector(".ventana");
+    ventana.style.display = "none";
+    todo.style.display = "block";
+    window.location.reload();
+}
+
+function mostrar_modal_2() {
+    var todo = document.querySelector(".todo");
+    var ventana = document.querySelector(".ventana_2");
+    ventana.style.display = "block";
+    ventana.style.height = "470px";
+    todo.style.display = "none";
+}
+
+function guardar_2() {
+
+  var obtener_nombre = document.getElementById("nombre_persona").value;
+  var obtener_dia = document.getElementById("dia_volver").value;
+  var obtener_pregunta = document.getElementById("pregunta").value;
+
+  if(obtener_nombre != '' && obtener_dia != '' && obtener_pregunta != ''){
+  
+  if(!localStorage.getItem("suma")){
+    localStorage.setItem("suma",0);
+  }
+  var suma = localStorage.getItem("suma");
+  var ayuda = parseInt(suma) + 1;
+  localStorage.setItem("suma",parseInt(ayuda));
+
+  var i = localStorage.getItem("suma");
+
+  var area_de_revistas = document.getElementById("area3");
+  console.log(area_de_revistas);
+          var pasar_r = area_de_revistas.innerHTML;
+          pasar_r = parseInt(pasar_r) + 1;
+          localStorage.setItem("hora3",pasar_r);
+          area_de_revistas.innerHTML = `${localStorage.getItem("suma")}`;
+
+
+    localStorage.setItem(`nombre_revisita${i}`,obtener_nombre);
+    localStorage.setItem(`dia_revisita${i}`,obtener_dia);
+    localStorage.setItem(`Pregunta_revisita${i}`,obtener_pregunta);
+
+      var spiner = document.querySelector(".spiner_2");
+        spiner.style.display = "block";
+        setTimeout(function(){
+          spiner.style.display = "none";
+          document.getElementById("agregar_datos_formulario_2").reset();
+            alert("Datos agregados Correctamente");
+              var todo = document.querySelector(".todo");
+                var ventana = document.querySelector(".ventana_2");
+                  ventana.style.display = "none";
+                    todo.style.display = "block";
+                    window.location.reload();
+        },1000);
+
+  }else{
+    alert("Campos vacios, verifique y vuelva a intentarlo.");
+  }
+
+}
+
+function volver_2() {
+  var todo = document.querySelector(".todo");
+  var ventana = document.querySelector(".ventana_2");
+    ventana.style.display = "none";
+    todo.style.display = "block";
+    window.location.reload();
+}
+
+function eliminar_revisita(eliminar_nombre, eliminar_dia, eliminar_pregunta){
+  localStorage.removeItem(eliminar_nombre);
+  localStorage.removeItem(eliminar_dia);
+  localStorage.removeItem(eliminar_pregunta);
+  var area_de_revistas = document.getElementById("area3");
+
+          var pasar_r = area_de_revistas.innerHTML;
+          pasar_r = parseInt(pasar_r) - 1;
+          localStorage.setItem("hora3",pasar_r);
+          area_de_revistas.innerHTML = `${localStorage.getItem("hora3")}`;
+
+  window.location.reload();
+}
+
+function mostrar_modal_3() {
+    var todo = document.querySelector(".todo");
+    var ventana = document.querySelector(".ventana_3");
+    ventana.style.display = "block";
+    ventana.style.height = "430px";
+    todo.style.display = "none";
+}
+
+function volver_3() {
+  var todo = document.querySelector(".todo");
+  var ventana = document.querySelector(".ventana_3");
+    ventana.style.display = "none";
+    todo.style.display = "block";
+    window.location.reload(); 
+}
+
+function guardar_3() {
+
+  var obtener_nombre_estudio = document.getElementById("nombre_estudiante").value;
+  var obtener_capitulo = document.getElementById("capitulo_pendiente").value;
+  var obtener_parrafo = document.getElementById("parrafo_pendiente").value;
+
+  if(obtener_nombre_estudio != '' && obtener_capitulo != '------'&& obtener_parrafo != '-----'){
+
+  if(!localStorage.getItem("suma_estudio")){
+    localStorage.setItem("suma_estudio",0);
+  }
+  var suma = localStorage.getItem("suma_estudio");
+  var ayuda = parseInt(suma) + 1;
+  localStorage.setItem("suma_estudio",parseInt(ayuda));
+
+  var i = localStorage.getItem("suma_estudio");
+
+  var area_de_estudio = document.getElementById("area4");
+          var pasar_e = area_de_estudio.innerHTML;
+          pasar_e = parseInt(pasar_e) + 1;
+          localStorage.setItem("hora4",pasar_e);
+          area_de_estudio.innerHTML = `${localStorage.getItem("suma_estudio")}`;
+
+    localStorage.setItem(`nombre_estudiante${i}`,obtener_nombre_estudio);
+    localStorage.setItem(`capitulo_pendiente${i}`,obtener_capitulo);
+    localStorage.setItem(`parrafo_pendiente${i}`,obtener_parrafo);
+
+      var spiner = document.querySelector(".spiner_3");
+        spiner.style.display = "block";
+        setTimeout(function(){
+          spiner.style.display = "none";
+          document.getElementById("agregar_datos_formulario_3").reset();
+            alert("Datos agregados Correctamente");
+              var todo = document.querySelector(".todo");
+                var ventana = document.querySelector(".ventana_3");
+                  ventana.style.display = "none";
+                    todo.style.display = "block";
+                    window.location.reload();
+        },1000);
+
+  }else{
+    alert("Campos vacios, verifique y vuelva a intentarlo.");
+  }
+
+}
+
+function eliminar_estudio(eliminar_nombre,eliminar_capitulo,eliminar_parrafo){
+  localStorage.removeItem(eliminar_nombre);
+  localStorage.removeItem(eliminar_capitulo);
+  localStorage.removeItem(eliminar_parrafo);
+  var area_de_estudio = document.getElementById("area4");
+
+          var pasar_e = area_de_estudio.innerHTML;
+          pasar_e = parseInt(pasar_e) - 1;
+          localStorage.setItem("hora4",pasar_e);
+          area_de_estudio.innerHTML = `${localStorage.getItem("hora4")}`;
+
+  window.location.reload();
+}
+
+  </script>
+
+  <body>
+    <div class="app-page" data-page="home">
+      <div class="encabezado_titulo">
+        <div class="row">
+          <div class="col-2">
+
+            <div id="bordes"></div>
+          
+          </div>
+          <div class="col mr-md-5">
+        <h4 class="app-title text-center mr-md-5"><strong class="mr-md-5">Web-Tech</strong></h4>
+          </div>
+        </div>
+      </div>
+
+          <div class="row">
+              <div class="col nombre_usuario">
+                
+              </div>
+              <div class="col tipo">
+                
+              </div>
+          </div>
+
+          <div id="aviso">
+            <h6 class="text-center p-2">Bienvenido</h6>
+              <button class="btn btn-danger form-control" onclick="btn_pricipal();">Recargar Datos</button>
+          </div>
+
+      <div class="app-content">
+        <div class="container todo">
+            <div class="row">
+                  <div class="col-12">
+                      <div class="app-section">
+                          <div class="row">
+                              <div class="col-12 col-sm-6"><h5 class="text-center">Predicacion</h5></div><div class="col-12 col-sm-6 mes_año text-left"></div>
+                          </div>
+                          <hr/>
+
+                          <div id="inyect_predicacion"></div>
+                                  
+                          <hr/>
+                        <div class="app-button">
+                          <button class="btn btn-success form-control" onclick="mostrar_modal()">Añadir</button>
+                        </div>
+                      </div>
+                  </div>   
+                  <div class="col-12">
+                    <div class="app-section">
+                      <div class="row">
+                          <div class="col-12 col-md-6"><h5 class="text-center">Revisitas</h5></div>
+                      </div><hr/>
+
+                      <div class="scroll_alert">
+                        <div id="inyec_revisitas"></div>
+                      </div>
+
+                      <hr/>
+                        <div class="app-button" data-target="revisitas2">
+                          <button class="btn btn-success form-control" onclick="mostrar_modal_2()">Añadir</button>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                      <div class="app-section">
+                        <div class="row">
+                          <div class="col-12 col-md-6"><h5 class="text-center">Estudios</h5></div>
+                        </div><hr/>
+
+                          <div class="scroll_alert">
+                              <div id="inyect_estudios"></div>
+                          </div>
+
+                        <hr/>
+                        <div class="app-button" data-target="estudios3">
+                          <button class="btn btn-success form-control" onclick="mostrar_modal_3()">Añadir</button>
+                        </div>
+                      </div>
+                  </div>    
+            </div>
+        </div>
+
+
+        <div class="ventana scroll">
+            <div class="container mt-3">
+              <div class="row justify-content-center">
+                  <div class="col-9">
+                      <form id="agregar_datos_formulario">
+                        <h6 class="text-center p-2">Agregar Datos</h6>
+                        <div class="row">
+                            <div class="col">
+                              <label for="horas">Horas</label>
+                              <input type="number" class="form-control" placeholder="Cantidad de Horas" id="horas">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                              <label for="revistas">Revistas</label>
+                              <input type="number" class="form-control" placeholder="Cantidad de Revistas" id="revistas">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col">
+                              <label for="folletos">Folletos</label>
+                              <input type="number" class="form-control" placeholder="Cantidad de Folletos" id="folletos">
+                            </div>
+                        </div>
+
+                        <div class="spiner">
+                          <img src="img/spinner.gif">
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col">
+                                <input type="button" class="btn btn-success form-control" value="Guardar" onclick="guardar()">
+                            </div>
+                            <div class="col">
+                              <input type="button" class="btn btn-danger form-control" value="Volver" onclick="volver()">
+                            </div>
+                        </div>
+                      </form>
+
+                      <div class="alert alert-info mt-5"><b>Nota: </b> Las "Revisitas" y  "Estudios" se agregan de forma independiente en la ventana <b>principal</b>.</div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="ventana_2 scroll">
+          <div class="container mt-3">
+              <div class="row justify-content-center">
+                  <div class="col-9">
+                      <form id="agregar_datos_formulario_2">
+                        <h6 class="text-center p-2">Agregar Datos</h6>
+                        <div class="row">
+                            <div class="col">
+                              <label for="nombre_persona">Nombre de la persona</label>
+                              <input type="text" class="form-control" placeholder="Nombre de la persona" id="nombre_persona">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                              <label for="dia_volver">Dia a volver</label>
+                              <input type="date" class="form-control" placeholder="Dia a volver" id="dia_volver">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col">
+                              <label for="pregunta">¿Pregunta pendiente?</label>
+                              <input type="text" class="form-control" placeholder="¿Pregunta pendiente?" id="pregunta">
+                            </div>
+                        </div>
+
+                        <div class="spiner_2">
+                          <img src="img/spinner.gif">
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col">
+                                <input type="button" class="btn btn-success form-control" value="Guardar" onclick="guardar_2()">
+                            </div>
+                            <div class="col">
+                              <input type="button" class="btn btn-danger form-control" value="Volver" onclick="volver_2()">
+                            </div>
+                        </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="ventana_3 scroll">
+          <div class="container mt-3">
+              <div class="row justify-content-center">
+                  <div class="col-9">
+                      <form id="agregar_datos_formulario_3">
+                        <h6 class="text-center p-2">Agregar Datos</h6>
+                        <div class="row">
+                            <div class="col">
+                              <label for="nombre_persona">Nombre del Estudiante</label>
+                              <input type="text" class="form-control" placeholder="Nombre del Estudiante" id="nombre_estudiante">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                              <label for="dia_volver">Capitulo Pendiente</label>
+                              <select id="capitulo_pendiente" class="form-control">
+                                <option>------</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col">
+                              <label for="pregunta">Parrafo Pendiente</label>
+                              <select id="parrafo_pendiente" class="form-control">
+                                <option>-----</option>
+                              </select>
+                            </div>
+                        </div>
+
+                        <div class="spiner_3">
+                          <img src="img/spinner.gif">
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col">
+                                <input type="button" class="btn btn-success form-control" value="Guardar" onclick="guardar_3()">
+                            </div>
+                            <div class="col">
+                              <input type="button" class="btn btn-danger form-control" value="Volver" onclick="volver_3()">
+                            </div>
+                        </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      </div>
+
+    </div>
+
+    <div class="app-page" data-page="Predicacion1">
+      <div class="app-topbar">
+        <div class="app-button left" data-back data-autotitle></div>
+        <div class="text-center p-2.1 encabezado_titulo">Predicacion</div>
+      </div>
+      <div class="app-content">
+        
+          
+
+      </div>
+    </div>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/zepto.js"></script>
+    <script src="js/app.min.js"></script>
+    <script>
+      App.controller('home', function (page) {
+        // put stuff here
+      });
+
+      App.controller('Predicacion1', function (page) {
+      
+      });
+
+      try {
+        App.restore();
+      } catch (err) {
+        App.load('home');
+      }
+    </script>
+  </body>
+</html>
